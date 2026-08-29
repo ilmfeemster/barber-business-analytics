@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Private / generated business data
+data/raw/
+data/clean/
+data/dashboard/
+data/*.db
+snapshots/
