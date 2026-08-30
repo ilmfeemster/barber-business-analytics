@@ -1,0 +1,12 @@
+dataset,field,definition
+business_growth,completed_service_appointments,Primary growth KPI: completed non-administrative Booksy appointments.
+business_growth,observed_new_clients,Clients whose first observed completed service visit occurs in the month.
+business_growth,returning_clients,Clients completing service in the month who had a prior observed completed visit.
+business_growth,unique_completed_clients,Distinct resolved clients with a completed service in the month.
+business_growth,intervention_period,"pre_gbp, gbp_creation_month, or post_gbp."
+business_growth,is_partial_month,1 for incomplete edge months in the reporting window.
+active_clients,active_clients_42d,Distinct clients with a completed service in the trailing 42 days at month-end.
+active_clients,active_clients_90d,Distinct clients with a completed service in the trailing 90 days at month-end.
+client_cohorts,repeat_rate_42d,Eligible acquired clients returning for a second completed service within 42 days.
+client_cohorts,repeat_rate_90d,Eligible acquired clients returning for a second completed service within 90 days.
+repeat_cadence,pct_of_return_intervals,Share of observed intervals between consecutive completed service days.

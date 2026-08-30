@@ -3,9 +3,11 @@ __pycache__/
 *.pyc
 .DS_Store
 
-# Private / generated business data
+# Private / client-level business data
 data/raw/
 data/clean/
-data/dashboard/
 data/*.db
 snapshots/
+
+# data/dashboard/ is intentionally versioned because it contains
+# aggregate, PII-free outputs used by the Streamlit app.

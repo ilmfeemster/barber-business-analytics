@@ -1,0 +1,15 @@
+cohort_month,acquired_clients,clients_ever_repeated_observed,observed_repeat_rate,clients_eligible_42d,clients_repeated_42d,repeat_rate_42d,clients_eligible_90d,clients_repeated_90d,repeat_rate_90d,avg_days_to_second_visit,intervention_period,is_partial_month
+2025-07,6,2,0.3333,6,0,0.0,6,1,0.1667,144.0,pre_gbp,1
+2025-08,24,11,0.4583,24,7,0.2917,24,10,0.4167,32.9,pre_gbp,0
+2025-09,15,3,0.2,15,3,0.2,15,3,0.2,33.3,pre_gbp,0
+2025-10,13,7,0.5385,13,5,0.3846,13,6,0.4615,43.7,pre_gbp,0
+2025-11,12,6,0.5,12,3,0.25,12,6,0.5,47.3,pre_gbp,0
+2025-12,13,5,0.3846,13,2,0.1538,13,3,0.2308,77.2,pre_gbp,0
+2026-01,9,6,0.6667,9,4,0.4444,9,6,0.6667,36.5,pre_gbp,0
+2026-02,15,6,0.4,15,3,0.2,15,5,0.3333,43.0,pre_gbp,0
+2026-03,7,3,0.4286,7,1,0.1429,7,1,0.1429,76.7,gbp_creation_month,0
+2026-04,20,6,0.3,20,3,0.15,20,5,0.25,52.0,post_gbp,0
+2026-05,9,0,0.0,9,0,0.0,8,0,0.0,,post_gbp,0
+2026-06,9,2,0.2222,9,1,0.1111,0,0,,55.5,post_gbp,0
+2026-07,9,0,0.0,2,0,0.0,0,0,,,post_gbp,0
+2026-08,14,2,0.1429,0,0,,0,0,,11.0,post_gbp,1
