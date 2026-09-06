@@ -114,6 +114,47 @@ st.line_chart(
     y_label="Clients",
 )
 
+st.subheader("Appointment Leakage")
+st.caption(
+    "Cancelled and no-show appointments are booked demand that did not turn into "
+    "a completed service."
+)
+
+lost_bookings = int(
+    latest["cancelled_service_appointments"]
+    + latest["no_show_service_appointments"]
+)
+lost_col, cancellation_col, no_show_col = st.columns(3)
+
+with lost_col:
+    st.metric("Lost Bookings", lost_bookings)
+    st.caption(
+        f"{int(latest['cancelled_service_appointments'])} cancelled + "
+        f"{int(latest['no_show_service_appointments'])} no-show"
+    )
+
+with cancellation_col:
+    st.metric("Cancellation Rate", f"{latest['cancellation_rate']:.1%}")
+
+with no_show_col:
+    st.metric("No-Show Rate", f"{latest['no_show_rate']:.1%}")
+
+leakage_chart = (
+    growth.set_index("month")[["cancellation_rate", "no_show_rate"]]
+    .mul(100)
+    .rename(
+        columns={
+            "cancellation_rate": "Cancellation Rate",
+            "no_show_rate": "No-Show Rate",
+        }
+    )
+)
+st.line_chart(
+    leakage_chart,
+    x_label="Month",
+    y_label="Rate (%)",
+)
+
 st.subheader("New-Client Retention by Cohort")
 st.caption(
     "Percentage of newly acquired clients who completed a second visit within "

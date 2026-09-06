@@ -11,6 +11,7 @@ The goal is to help a small service business understand:
 - Appointment volume and growth
 - New-client acquisition
 - Returning-client activity
+- Appointment leakage from cancellations and no-shows
 - Customer retention and repeat behavior
 - Changes in the active client base
 - Business performance trends over time

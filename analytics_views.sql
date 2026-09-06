@@ -115,7 +115,7 @@ SELECT
         ELSE 'post_gbp'
     END AS intervention_period,
     CASE
-        WHEN m.month = '2025-07' OR m.month = '2026-08' THEN 1
+        WHEN m.month = '2025-07' THEN 1
         ELSE 0
     END AS is_partial_month
 FROM months m
@@ -197,7 +197,7 @@ SELECT
     CASE WHEN acquisition_cohort_month < '2026-03' THEN 'pre_gbp'
          WHEN acquisition_cohort_month = '2026-03' THEN 'gbp_creation_month'
          ELSE 'post_gbp' END AS intervention_period,
-    CASE WHEN acquisition_cohort_month IN ('2025-07', '2026-08') THEN 1 ELSE 0 END AS is_partial_month
+    CASE WHEN acquisition_cohort_month = '2025-07' THEN 1 ELSE 0 END AS is_partial_month
 FROM v_client_retention
 GROUP BY acquisition_cohort_month
 ORDER BY acquisition_cohort_month;
@@ -226,7 +226,7 @@ SELECT
     CASE WHEN m.month < '2026-03' THEN 'pre_gbp'
          WHEN m.month = '2026-03' THEN 'gbp_creation_month'
          ELSE 'post_gbp' END AS intervention_period,
-    CASE WHEN m.month IN ('2025-07', '2026-08') THEN 1 ELSE 0 END AS is_partial_month
+    CASE WHEN m.month = '2025-07' THEN 1 ELSE 0 END AS is_partial_month
 FROM month_ends m
 LEFT JOIN completed c ON c.appointment_date <= m.month_end
 GROUP BY m.month, m.month_end
