@@ -6,6 +6,7 @@ import streamlit as st
 
 DATA_DIR = Path(__file__).parent / "data" / "dashboard"
 BUSINESS_GROWTH_FILE = DATA_DIR / "business_growth.csv"
+CLIENT_COHORTS_FILE = DATA_DIR / "client_cohorts.csv"
 
 
 @st.cache_data
@@ -15,8 +16,29 @@ def load_business_growth() -> pd.DataFrame:
     return df.sort_values("month").reset_index(drop=True)
 
 
+@st.cache_data
+def load_client_cohorts() -> pd.DataFrame:
+    df = pd.read_csv(CLIENT_COHORTS_FILE)
+    df["cohort_month"] = pd.to_datetime(df["cohort_month"], format="%Y-%m")
+    return df.sort_values("cohort_month").reset_index(drop=True)
+
+
 def format_month(value: pd.Timestamp) -> str:
     return value.strftime("%B %Y")
+
+
+def format_repeat_rate(row: pd.Series, window_days: int) -> str:
+    """Format a cohort repeat rate with its auditable numerator and denominator."""
+    eligible = int(row[f"clients_eligible_{window_days}d"])
+    if eligible == 0:
+        return "Not yet eligible"
+
+    repeated = int(row[f"clients_repeated_{window_days}d"])
+    rate = row[f"repeat_rate_{window_days}d"]
+    if pd.isna(rate):
+        return "—"
+
+    return f"{rate:.1%} ({repeated} of {eligible} eligible)"
 
 
 st.set_page_config(
@@ -29,10 +51,11 @@ st.caption("Monthly appointment and client growth")
 
 try:
     growth = load_business_growth()
+    cohorts = load_client_cohorts()
 except FileNotFoundError:
     st.error(
         "Dashboard data is missing. Run `python export_dashboard.py` to create "
-        "`data/dashboard/business_growth.csv`."
+        "the files in `data/dashboard`."
     )
     st.stop()
 
@@ -90,6 +113,23 @@ st.line_chart(
     x_label="Month",
     y_label="Clients",
 )
+
+st.subheader("New-Client Retention by Cohort")
+st.caption(
+    "Percentage of newly acquired clients who completed a second visit within "
+    "42 or 90 days of their first completed visit. Rates include the returning "
+    "client count and eligible-client denominator."
+)
+
+retention_table = pd.DataFrame(
+    {
+        "Acquisition Cohort": cohorts["cohort_month"].map(format_month),
+        "Acquired Clients": cohorts["acquired_clients"].astype(int),
+        "42-Day Repeat Rate": cohorts.apply(format_repeat_rate, axis=1, window_days=42),
+        "90-Day Repeat Rate": cohorts.apply(format_repeat_rate, axis=1, window_days=90),
+    }
+)
+st.dataframe(retention_table, hide_index=True, use_container_width=True)
 
 st.caption(
     "Source: Booksy reporting. Completed appointments exclude "
